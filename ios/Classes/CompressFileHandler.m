@@ -23,19 +23,19 @@
     int formatType = [args[6] intValue];
     BOOL keepExif = [args[7] boolValue];
 
-    
+
     UIImage *img;
-    
+
     NSURL *imageUrl = [NSURL fileURLWithPath:path];
     NSData *nsdata = [NSData dataWithContentsOfURL:imageUrl];
-    
+
     NSString *imageType = [self mimeTypeByGuessingFromData:nsdata];
-    
+
     //  NSLog(@" nsdata length: %@", imageType);
-    
+
     SDImageWebPCoder *webPCoder = [SDImageWebPCoder sharedCoder];
-    [[SDImageCodersManager sharedManager] addCoder:webPCoder];
-    
+    // [[SDImageCodersManager sharedManager] addCoder:webPCoder];
+
     if(imageType == @"image/webp") {
     img = [[SDImageWebPCoder sharedCoder] decodedImageWithData:nsdata options:nil];
     } else {
@@ -66,25 +66,25 @@
     int formatType = [args[7] intValue];
     BOOL keepExif = [args[8] boolValue];
 
-    
+
     UIImage *img;
-    
+
     NSURL *imageUrl = [NSURL fileURLWithPath:path];
     NSData *nsdata = [NSData dataWithContentsOfURL:imageUrl];
-    
+
     NSString *imageType = [self mimeTypeByGuessingFromData:nsdata];
-    
+
     //  NSLog(@" nsdata length: %@", imageType);
-    
+
     SDImageWebPCoder *webPCoder = [SDImageWebPCoder sharedCoder];
-    [[SDImageCodersManager sharedManager] addCoder:webPCoder];
-    
+    // [[SDImageCodersManager sharedManager] addCoder:webPCoder];
+
     if(imageType == @"image/webp") {
     img = [[SDImageWebPCoder sharedCoder] decodedImageWithData:nsdata options:nil];
     } else {
         img = [UIImage imageWithData:nsdata];
     }
-    
+
     NSData *data = [CompressHandler compressDataWithUIImage:img minWidth:minWidth minHeight:minHeight quality:quality rotate:rotate format:formatType];
 
     if (keepExif) {
