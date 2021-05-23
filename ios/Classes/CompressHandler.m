@@ -55,12 +55,12 @@
         double time = [[NSDate alloc]init].timeIntervalSince1970;
         NSString *target = [NSString stringWithFormat:@"%@%.0f.heic",tmpDir, time * 1000];
         NSURL *url = [NSURL fileURLWithPath:target];
-        
+
         NSMutableDictionary *options = [NSMutableDictionary new];
         NSString *qualityKey = (__bridge NSString *)kCGImageDestinationLossyCompressionQuality;
 //        CIImageRepresentationOption
         [options setObject:@(quality / 100) forKey: qualityKey];
-        
+
         if (@available(iOS 11.0, *)) {
             [ciContext writeHEIFRepresentationOfImage:ciImage toURL:url format: kCIFormatARGB8 colorSpace: ciImage.colorSpace options:options error:nil];
             data = [NSData dataWithContentsOfURL:url];
@@ -69,8 +69,8 @@
             data = nil;
         }
     } else if(format == 3){ // webp
-        SDImageCoderOptions *option = @{SDImageCoderEncodeCompressionQuality: @(quality / 100)};
-        data = [[SDImageWebPCoder sharedCoder]encodedDataWithImage:image format:SDImageFormatWebP options:option];
+        // SDImageCoderOptions *option = @{SDImageCoderEncodeCompressionQuality: @(quality / 100)};
+        // data = [[SDImageWebPCoder sharedCoder]encodedDataWithImage:image format:SDImageFormatWebP options:option];
     } else if(format == 1){ // png
         data = UIImagePNGRepresentation(image);
     }else { // 0 or other is jpeg
